@@ -34,10 +34,17 @@
 		Add cart to save items customer wishes to purchase
 		Add calculations for pre tax price, tax, and total price
 		
+		
+	12/30 Actually Updating Again
+		Added StoreInformation button that moves to a new page containing SQL request with Store Information
+		Button that handles going back to the main page is not working properly, unsure of why
+		Plans:
+			Get Go back button working
+			onclick buttons that display additional information (think Gamestop like)
+		
 -->
 
-
-
+</script>
 
     <link href="E:/328/normalize.css"
           type="text/css" rel="stylesheet" />
@@ -58,21 +65,6 @@
 </head>
 
 <body>
-
-<?php
-	$dbServername = "sensored for privacy, database server name goes here"
-	
-	$conninfo = array( "Database"=>"Learning and Testing", "UID"=>"Admin", "PWD"=>"Password");
-	$conn = sqlsrv_connect( $dbServername, $conninfo);
-	if ( $conn ){
-		echo "<h2> Connection Established </h2>";
-	}
-	else{
-		echo "Connection could not be established.<br />";
-		die ( print_r( sqlsrv_errors(), true));
-	}
-
-?>
 	
 	<h2> Ray Ivey --- Testing/Learning HTML/PHP/CSS/JS </h2>
 		
@@ -86,7 +78,10 @@
 		<input type="button" value="Cards and Other Games" name="CardGames" />
 		<input type="button" value="Acessories" name="Acessories" />
 		<input type="button" value="Game Room" name="GameRoom" />
-		<input type="button" value="Location" name="Location" />
+	</form>
+	
+	<form>
+		<button type="submit"  name="StoreInformation" formaction="StoreLocation.php">Store Information</button>
 	</form>
     <hr />
 	
@@ -108,32 +103,7 @@
 		<input type="button" value="Compute" name="Compute" id="Compute" onclick="Computation()" />
 	</form>
 	
-<?php
-	$sql = "SELECT * FROM Store";
-	$params = array();
-	$stmt = sqlsrv_query( $conn, $sql, $params);
-	
-	if(!$stmt)
-	{
-		echo "Query Issue.<br />";
-		die ( print_r( sqlsrv_errors(), true));
-	}
-	
-	if ($stmt !== false)
-	{
-		while($row = sqlsrv_fetch_array ($stmt) )
-		{
-			echo "Store Id: " . $row["store_id"]. " Store Phone: " . $row["Store_phone"]. " Store Email: " . $row["store_email"]. "<br>";
-		}
-	}
-	else
-	{
-		echo "0 results";
-	}
-	
-		sqlsrv_close( $conn );
-?>
-	
+
 	<p id="testP"> Result goes here </p>
 
 	
